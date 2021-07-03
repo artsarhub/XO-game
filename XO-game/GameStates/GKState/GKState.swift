@@ -87,7 +87,9 @@ class PlayerInputState: GKState {
             self.isWinner = winner == self.player
             self.stateMachine?.enter(GameEndedState.self)
         } else {
-            let stateClass = player.next == .first ? FirstPlayerInputState.self : SecondPlayerInputState.self
+            let stateClass = player.next == .first
+                ? FirstPlayerInputState.self
+                : (gameViewController.is2PlayersGame ?  SecondPlayerInputState.self : ComputerPlayerInputState.self)
             self.stateMachine?.enter(stateClass)
         }
     }
@@ -102,5 +104,35 @@ class SecondPlayerInputState: PlayerInputState {
 class FirstPlayerInputState: PlayerInputState {
     init(gameViewController: GameViewController, gameboard: Gameboard, view: GameboardView, referee: Referee) {
         super.init(player: .first, gameViewController: gameViewController, gameboard: gameboard, view: view, referee: referee)
+    }
+}
+
+class ComputerPlayerInputState: SecondPlayerInputState {
+    override init(gameViewController: GameViewController, gameboard: Gameboard, view: GameboardView, referee: Referee) {
+        super.init(gameViewController: gameViewController, gameboard: gameboard, view: view, referee: referee)
+    }
+    
+    override func didEnter(from previousState: GKState?) {
+        super.didEnter(from: previousState)
+        
+        let emptyPositions = getEmptyPositions(view: view)
+        guard emptyPositions.count != 0 else { return }
+        let randomPositionIdx = Int.random(in: 0..<emptyPositions.count)
+        let randomPosition = emptyPositions[randomPositionIdx]
+        
+        view.onSelectPosition?(randomPosition)
+    }
+    
+    private func getEmptyPositions(view: GameboardView) -> [GameboardPosition] {
+        var positions: [GameboardPosition] = []
+        for i in 0..<3 {
+            for j in 0..<3 {
+                let position = GameboardPosition(column: i, row: j)
+                if view.canPlaceMarkView(at: position) {
+                    positions.append(position)
+                }
+            }
+        }
+        return positions
     }
 }

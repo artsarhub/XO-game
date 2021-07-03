@@ -20,6 +20,8 @@ class GameViewController: UIViewController {
     private let gameboard = Gameboard()
     private lazy var referee = Referee(gameboard: self.gameboard)
     private var stateMachine: GKStateMachine!
+    
+    var is2PlayersGame = true
 //    var currentState: GameState! {
 //        didSet {
 //            self.currentState.begin()
@@ -29,11 +31,18 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.stateMachine = GKStateMachine(states: [
-            FirstPlayerInputState(gameViewController: self, gameboard: self.gameboard, view: self.gameboardView, referee: self.referee),
-            SecondPlayerInputState(gameViewController: self, gameboard: self.gameboard, view: self.gameboardView, referee: self.referee),
-            GameEndedState(gameViewController: self)
-        ])
+        var states: [GKState] = [
+            GameEndedState(gameViewController: self),
+            FirstPlayerInputState(gameViewController: self, gameboard: self.gameboard, view: self.gameboardView, referee: self.referee)
+        ]
+        
+        if is2PlayersGame {
+            states.append(SecondPlayerInputState(gameViewController: self, gameboard: self.gameboard, view: self.gameboardView, referee: self.referee))
+        } else {
+            states.append(ComputerPlayerInputState(gameViewController: self, gameboard: self.gameboard, view: self.gameboardView, referee: self.referee))
+        }
+        
+        self.stateMachine = GKStateMachine(states: states)
         
         self.goToFirstState()
         

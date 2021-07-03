@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ACD99B2F2690987A00FF53D5 /* StartScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD99B2E2690987A00FF53D5 /* StartScreenViewController.swift */; };
 		DB85B9F5268240CF007B31B7 /* GKState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB85B9F4268240CF007B31B7 /* GKState.swift */; };
 		DB85B9F82682515C007B31B7 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB85B9F72682515C007B31B7 /* GameState.swift */; };
 		DB85B9FA26825C3E007B31B7 /* Copying.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB85B9F926825C3E007B31B7 /* Copying.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		ACD99B2E2690987A00FF53D5 /* StartScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreenViewController.swift; sourceTree = "<group>"; };
 		DB85B9F4268240CF007B31B7 /* GKState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GKState.swift; sourceTree = "<group>"; };
 		DB85B9F72682515C007B31B7 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		DB85B9F926825C3E007B31B7 /* Copying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Copying.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				DB85B9F2268240A9007B31B7 /* GameStates */,
 				F874E4702224621100364CAE /* AppDelegate.swift */,
 				F874E4722224621100364CAE /* GameViewController.swift */,
+				ACD99B2E2690987A00FF53D5 /* StartScreenViewController.swift */,
 				F874E4F02225DFF700364CAE /* Referee.swift */,
 				F874E4E62225CB3F00364CAE /* Models */,
 				F874E4E52225CB3100364CAE /* Views */,
@@ -178,11 +181,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = plasmon;
 				TargetAttributes = {
 					F874E46C2224621100364CAE = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1250;
 					};
 				};
 			};
@@ -229,6 +233,7 @@
 				F874E4F12225DFF700364CAE /* Referee.swift in Sources */,
 				F874E4F52225E2CD00364CAE /* Gameboard.swift in Sources */,
 				F874E4712224621100364CAE /* AppDelegate.swift in Sources */,
+				ACD99B2F2690987A00FF53D5 /* StartScreenViewController.swift in Sources */,
 				F874E4E22225CABF00364CAE /* OView.swift in Sources */,
 				DB85B9FC2682640A007B31B7 /* Analytics.swift in Sources */,
 				DB85B9F5268240CF007B31B7 /* GKState.swift in Sources */,
@@ -288,6 +293,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -349,6 +355,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -391,7 +398,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "plasmon.XO-game";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -409,7 +416,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "plasmon.XO-game";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
