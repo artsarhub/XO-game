@@ -25,6 +25,10 @@ class GameEndedState: GKState {
         if let playerInput = previousState as? PlayerInputState, playerInput.isWinner {
             recordEvent(.playerWin(playerInput.player))
             self.gameViewController.winnerLabel.text = self.winnerName(from: playerInput.player) + " win"
+        } else if let executionState = previousState as? PlayersInputsExecutionState,
+                  let winner = executionState.winner {
+            recordEvent(.playerWin(winner))
+            self.gameViewController.winnerLabel.text = self.winnerName(from: winner) + " win"
         } else {
             self.gameViewController.winnerLabel.text = "No winner"
         }
@@ -34,6 +38,7 @@ class GameEndedState: GKState {
 
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         return stateClass == FirstPlayerInputState.self
+            || stateClass == FirstPlayerFiveStepsInputState.self
     }
 
     private func winnerName(from winner: Player) -> String {
@@ -89,7 +94,7 @@ class PlayerInputState: GKState {
         } else {
             let stateClass = player.next == .first
                 ? FirstPlayerInputState.self
-                : (gameViewController.is2PlayersGame ?  SecondPlayerInputState.self : ComputerPlayerInputState.self)
+                : (gameViewController.gameVariant == .withHuman ? SecondPlayerInputState.self : ComputerPlayerInputState.self)
             self.stateMachine?.enter(stateClass)
         }
     }
@@ -106,6 +111,8 @@ class FirstPlayerInputState: PlayerInputState {
         super.init(player: .first, gameViewController: gameViewController, gameboard: gameboard, view: view, referee: referee)
     }
 }
+
+// MARK: - With computer
 
 class ComputerPlayerInputState: SecondPlayerInputState {
     override init(gameViewController: GameViewController, gameboard: Gameboard, view: GameboardView, referee: Referee) {
@@ -134,5 +141,55 @@ class ComputerPlayerInputState: SecondPlayerInputState {
             }
         }
         return positions
+    }
+}
+
+// MARK: - FiveSteps
+
+class FiveStepsPlayerInputState: PlayerInputState {
+    private var commandsCount = 0
+    private let maxCommandsCount = 5
+    
+    override func didEnter(from previousState: GKState?) {
+        super.didEnter(from: previousState)
+        
+        if FiveStepsGameInvoker.shared.firstPlayerCommands.count == maxCommandsCount,
+           FiveStepsGameInvoker.shared.secondPlayerCommands.count == maxCommandsCount {
+            self.stateMachine?.enter(PlayersInputsExecutionState.self)
+        }
+        commandsCount = 0
+    }
+    
+    override func addMark(at position: GameboardPosition) {
+        let command = PlayerStepCommand(player: player, position: position, gameboard: gameboard, view: view, referee: referee, stateMachine: self.stateMachine)
+        FiveStepsGameInvoker.shared.addCommand(command)
+        commandsCount += 1
+        
+        if commandsCount == maxCommandsCount {
+            let stateClass = player.next == .first
+                ? FirstPlayerFiveStepsInputState.self
+                : SecondPlayerFiveStepsInputState.self
+            self.stateMachine?.enter(stateClass)
+        }
+    }
+}
+
+class FirstPlayerFiveStepsInputState: FiveStepsPlayerInputState {
+    init(gameViewController: GameViewController, gameboard: Gameboard, view: GameboardView, referee: Referee) {
+        super.init(player: .first, gameViewController: gameViewController, gameboard: gameboard, view: view, referee: referee)
+    }
+}
+
+class SecondPlayerFiveStepsInputState: FiveStepsPlayerInputState {
+    init(gameViewController: GameViewController, gameboard: Gameboard, view: GameboardView, referee: Referee) {
+        super.init(player: .second, gameViewController: gameViewController, gameboard: gameboard, view: view, referee: referee)
+    }
+}
+
+class PlayersInputsExecutionState: GKState {
+    var winner: Player?
+    
+    override func didEnter(from previousState: GKState?) {
+        FiveStepsGameInvoker.shared.executeCommands()
     }
 }

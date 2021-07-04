@@ -102,7 +102,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="EKe-4o-pqB">
-                                <rect key="frame" x="97" y="291" width="181" height="85"/>
+                                <rect key="frame" x="97" y="263.5" width="181" height="140"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bo7-u4-whY">
                                         <rect key="frame" x="0.0" y="0.0" width="181" height="30"/>
@@ -116,6 +116,13 @@
                                         <state key="normal" title="Игра с двумя игроками"/>
                                         <connections>
                                             <segue destination="BYZ-38-t0r" kind="show" identifier="TwoPlayersGameSegue" id="Lv2-Ms-gRG"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N72-RC-ONg">
+                                        <rect key="frame" x="0.0" y="110" width="181" height="30"/>
+                                        <state key="normal" title="Игра вслепую"/>
+                                        <connections>
+                                            <segue destination="BYZ-38-t0r" kind="show" identifier="FiveStepsGameSegue" id="o20-qb-FcJ"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -135,7 +142,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Lv2-Ms-gRG"/>
+        <segue reference="o20-qb-FcJ"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">

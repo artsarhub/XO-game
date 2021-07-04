@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		ACD99B2F2690987A00FF53D5 /* StartScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD99B2E2690987A00FF53D5 /* StartScreenViewController.swift */; };
+		ACD99B312690CF2900FF53D5 /* FiveStepsGameInvoker.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD99B302690CF2900FF53D5 /* FiveStepsGameInvoker.swift */; };
 		DB85B9F5268240CF007B31B7 /* GKState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB85B9F4268240CF007B31B7 /* GKState.swift */; };
 		DB85B9F82682515C007B31B7 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB85B9F72682515C007B31B7 /* GameState.swift */; };
 		DB85B9FA26825C3E007B31B7 /* Copying.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB85B9F926825C3E007B31B7 /* Copying.swift */; };
@@ -30,6 +31,7 @@
 
 /* Begin PBXFileReference section */
 		ACD99B2E2690987A00FF53D5 /* StartScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreenViewController.swift; sourceTree = "<group>"; };
+		ACD99B302690CF2900FF53D5 /* FiveStepsGameInvoker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiveStepsGameInvoker.swift; sourceTree = "<group>"; };
 		DB85B9F4268240CF007B31B7 /* GKState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GKState.swift; sourceTree = "<group>"; };
 		DB85B9F72682515C007B31B7 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		DB85B9F926825C3E007B31B7 /* Copying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Copying.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				F874E47C2224621300364CAE /* Info.plist */,
 				DB85B9F926825C3E007B31B7 /* Copying.swift */,
 				DB85B9FB2682640A007B31B7 /* Analytics.swift */,
+				ACD99B302690CF2900FF53D5 /* FiveStepsGameInvoker.swift */,
 			);
 			path = "XO-game";
 			sourceTree = "<group>";
@@ -242,6 +245,7 @@
 				DB85B9FA26825C3E007B31B7 /* Copying.swift in Sources */,
 				F874E4DB2225C1AC00364CAE /* GameboardView.swift in Sources */,
 				F874E4EF2225DE4500364CAE /* Player.swift in Sources */,
+				ACD99B312690CF2900FF53D5 /* FiveStepsGameInvoker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

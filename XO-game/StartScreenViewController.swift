@@ -18,9 +18,11 @@ class StartScreenViewController: UIViewController {
         guard let controller = segue.destination as? GameViewController else { return }
         switch segue.identifier {
         case "AIGameSegue":
-            controller.is2PlayersGame = false
+            controller.gameVariant = .withComputer
         case "TwoPlayersGameSegue":
-            controller.is2PlayersGame = true
+            controller.gameVariant = .withHuman
+        case "FiveStepsGameSegue":
+            controller.gameVariant = .fiveSteps
         default:
             break
         }

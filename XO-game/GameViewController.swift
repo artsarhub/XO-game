@@ -9,6 +9,10 @@
 import UIKit
 import GameplayKit
 
+enum GameVariant {
+    case withHuman, withComputer, fiveSteps
+}
+
 class GameViewController: UIViewController {
 
     @IBOutlet private var gameboardView: GameboardView!
@@ -20,8 +24,9 @@ class GameViewController: UIViewController {
     private let gameboard = Gameboard()
     private lazy var referee = Referee(gameboard: self.gameboard)
     private var stateMachine: GKStateMachine!
+    private var firstState: GKState.Type = FirstPlayerInputState.self
     
-    var is2PlayersGame = true
+    var gameVariant: GameVariant = .withHuman
 //    var currentState: GameState! {
 //        didSet {
 //            self.currentState.begin()
@@ -31,15 +36,26 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var states: [GKState] = [
-            GameEndedState(gameViewController: self),
-            FirstPlayerInputState(gameViewController: self, gameboard: self.gameboard, view: self.gameboardView, referee: self.referee)
-        ]
+        var states: [GKState] = [GameEndedState(gameViewController: self)]
         
-        if is2PlayersGame {
-            states.append(SecondPlayerInputState(gameViewController: self, gameboard: self.gameboard, view: self.gameboardView, referee: self.referee))
-        } else {
-            states.append(ComputerPlayerInputState(gameViewController: self, gameboard: self.gameboard, view: self.gameboardView, referee: self.referee))
+        switch gameVariant {
+        case .withHuman:
+            states.append(contentsOf: [
+                FirstPlayerInputState(gameViewController: self, gameboard: self.gameboard, view: self.gameboardView, referee: self.referee),
+                SecondPlayerInputState(gameViewController: self, gameboard: self.gameboard, view: self.gameboardView, referee: self.referee)
+            ])
+        case .withComputer:
+            states.append(contentsOf: [
+                FirstPlayerInputState(gameViewController: self, gameboard: self.gameboard, view: self.gameboardView, referee: self.referee),
+                ComputerPlayerInputState(gameViewController: self, gameboard: self.gameboard, view: self.gameboardView, referee: self.referee)
+            ])
+        case .fiveSteps:
+            firstState = FirstPlayerFiveStepsInputState.self
+            states.append(contentsOf: [
+                FirstPlayerFiveStepsInputState(gameViewController: self, gameboard: self.gameboard, view: self.gameboardView, referee: self.referee),
+                SecondPlayerFiveStepsInputState(gameViewController: self, gameboard: self.gameboard, view: self.gameboardView, referee: self.referee),
+                PlayersInputsExecutionState()
+            ])
         }
         
         self.stateMachine = GKStateMachine(states: states)
@@ -90,7 +106,7 @@ class GameViewController: UIViewController {
 //    }
     
     private func goToFirstState() {
-        self.stateMachine.enter(FirstPlayerInputState.self)
+        self.stateMachine.enter(firstState)
     }
     
     @IBAction func restartButtonTapped(_ sender: UIButton) {
@@ -99,6 +115,4 @@ class GameViewController: UIViewController {
         self.goToFirstState()
     }
     
-
 }
-
